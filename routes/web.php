@@ -13,4 +13,3 @@ Route::controller(SeriesController::class)->group(function () {
     Route::post('/series/salvar', 'store')->name('series.store');
     Route::delete('/series/destroy/{serie}', 'destroy')->name('series.destroy');
 });
-
