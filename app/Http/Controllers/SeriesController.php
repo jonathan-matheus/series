@@ -12,11 +12,14 @@ class SeriesController extends Controller
      *
      * @return \Illuminate\View\View Retorna a visão 'series.index' com a lista de séries.
      */
-    public function index()
+    public function index(Request $request)
     {
         $series = Serie::query()->orderBy('nome', 'asc')->get();
+        $mensagemSucesso = $request->session()->get('mensagem.sucesso');
 
-        return view('series.index')->with('series', $series);
+        return view('series.index')
+            ->with('series', $series)
+            ->with('mensagemSucesso', $mensagemSucesso);
     }
 
     /**
@@ -42,13 +45,16 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        Serie::create($request->all());
+        $serie = Serie::create($request->all());
+        $request->session()->flash('mensagem.sucesso', "Série '{$serie->nome}' cadastrada com sucesso!");
+
         return to_route('series.index');
     }
 
-    public function destroy(Request $request)
+    public function destroy(Serie $serie, Request $request)
     {
-        Serie::destroy($request->serie);
+        Serie::destroy($serie->id);
+        $request->session()->flash('mensagem.sucesso', "Série '{$serie->nome}' removida com sucesso!");
 
         return to_route('series.index');
     }
