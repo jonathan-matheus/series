@@ -12,4 +12,6 @@ Route::controller(SeriesController::class)->group(function () {
     Route::get('/series/criar', 'create')->name('series.create');
     Route::post('/series/salvar', 'store')->name('series.store');
     Route::delete('/series/destroy/{serie}', 'destroy')->name('series.destroy');
+    Route::get('/series/{serie}/edit', 'edit')->name('series.edit');
+    Route::put('/series/{serie}', 'update')->name('series.update');
 });
