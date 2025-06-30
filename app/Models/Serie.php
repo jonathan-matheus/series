@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model
 {
-    //
     protected $fillable = ['nome'];
 
     public function temporadas()
     {
-        return $this->hasMany(Season::class);
+        return $this->hasMany(Season::class, 'serie_id');
     }
 }
